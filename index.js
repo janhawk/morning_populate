@@ -14,6 +14,7 @@ mongoose.connect('mongodb://localhost:27017/mongoose_populate', {
     }
 });
 
+
 const studentSchema = mongoose.Schema({
     address:{ 
         type: mongoose.Schema.Types.ObjectId, 
@@ -63,46 +64,59 @@ const Address = mongoose.model('Address', addressSchema);
 
 const address = new Address({
     streetName: 'avenue',
-    streetNumber: 180,
-    // postCode: req.body.postCode,
-    // city: req.body.city,
+    streetNumber: 183150,
+    postCode: 75,
+    city: 'paris',
     // address:req.body.address,
 })
-const student = new Student({
-    firstName: 'kev',
-    surname: 'law',
-    // postCode: req.body.postCode,
-    // city: req.body.city,
-    // address:req.body.address,
-})
-
-student.save((err,studentDb) => {
-    console.log('err', err)
-    console.log('studentDb', studentDb);
-
-    if (err !== null) {
-        res.send('ERROR! File not save err:', err);
-
-        return;
-    }
-    // res.send(`File has been saved! <a href="/">Go Back</a>`)
+// const student = new Student({
+//     firstName: 'kev',
+//     surname: 'law',
+//     adress: adressID
+//     // postCode: req.body.postCode,
+//     // city: req.body.city,
+//     // address:req.body.address,
+// })
 
 
-    });
 
 address.save((err,addressDb) => {
+    const addressID = addressDb._id;
     console.log('err', err)
     console.log('addressDb', addressDb);
 
-    if (err !== null) {
-        res.send('ERROR! File not save err:', err);
+    // if (err !== null) {
+    //     res.send('ERROR! File not save err:', err);
 
-        return;
-    }
-    // res.send(`File has been saved! <a href="/">Go Back</a>`)
+    //     return;
+    // }
+   
 
-    mongoose.connection.close();
+    const student = new Student({
+        firstName: 'kev',
+        surname: 'lafsdw',
+        address: addressID
+        // postCode: req.body.postCode,
+        // city: req.body.city,
+        // address:req.body.address,
     });
+
+    student.save((err,studentDb) => {
+        
+        console.log('err', err)
+        console.log('studentDb', studentDb);
+    
+        if (err !== null) {
+            res.send('ERROR! File not save err:', err);
+    
+            return;
+        }
+
+    });
+
+    // mongoose.connection.close();
+ });
+    
 // });
 // app.listen(port, () => {
 //     console.log(`Server satrted on port: ${port}`) // to confirme that server is started on that port
